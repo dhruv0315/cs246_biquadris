@@ -25,6 +25,16 @@ const vector<vector<int>> OBlock0{{0, 0}, {0, -1}, {1, 0}, {1, -1}};
 const vector<vector<int>> SBlock0{{0, 0}, {1,0}, {1,-1}, {2, -1}};
 const vector<vector<int>> SBlock1{{0, -1}, {0,-2}, {1,0}, {1, -1}};
 
+const vector<vector<int>> ZBlock0{{0,-1}, {1,-1}, {1,0}, {2, 0}};
+const vector<vector<int>> ZBlock1{{0,0}, {0,-1}, {1,-1}, {1, -1}};
+
+const vector<vector<int>> TBlock0{{0, -1}, {1,-1}, {1, 0}, {2, -1}};
+const vector<vector<int>> TBlock1{{0, -1}, {1, 0}, {1, -1}, {1,-2}};
+const vector<vector<int>> TBlock2{{0, 0}, {1,0}, {1,-1}, {2,0}};
+const vector<vector<int>> TBlock3{{0, 0}, {0, -1}, {0, -2}, {1, -1}};
+
+
+
 Block::Block(Board& board, int x, int y):board{board},cell{{{}}}, x{x}, y{y} {}
 
 
@@ -280,4 +290,29 @@ void TBlock::rotateClockwise() {
         }
     }
 }
+
+void TBlock::rotateCounterClockwise() {
+    if (rotateState == 0) {
+        if (isValidPosition(TBlock3, x, y)) {
+            cell = TBlock3;
+            rotateState = 3;
+        }
+    } else if (rotateState == 3) {
+        if (isValidPosition(TBlock2, x, y)) {
+            cell = TBlock2;
+            rotateState = 2;
+        }
+    } else if (rotateState == 2) {
+        if (isValidPosition(TBlock1, x, y)) {
+            cell = TBlock1;
+            rotateState = 1;
+        }
+    } else if (rotateState == 1) {
+        if (isValidPosition(TBlock0, x, y)) {
+            cell = TBlock0;
+            rotateState = 0;
+        }
+    }
+}
+
 

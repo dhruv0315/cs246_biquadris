@@ -5,21 +5,22 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "board.h"
 
 using namespace std;
 
 const int boardWidth = 11;
-const int boardHeight = 15;
+const int boardHeight = 18;
 
-class Board; // forward declaration
 
 class Block {
 	protected:
 	Board& board; // a reference to the board that this block belongs to
 	std::vector<std::vector<int>> cell; // 2D grid representing the position of all cells in the block
-  int x, y;  // Position of the block on the board (bottom-left corner of the block)
+    int x, y;  // Position of the block on the board (bottom-left corner of the block)
 
 	public:
+
 	Block(Board& board, int x, int y);
 	virtual ~Block() = 0; //pure virtual method, abstract class, preventing initializing a "BLock" obj
 	
@@ -28,19 +29,22 @@ class Block {
 	void moveLeft();
 	void moveRight();
 	void moveDown();
-	void dropToBottom();
-	
-  bool isValidPosition(const std::vector<std::vector<int>>& newCells, int newX, int newY) const; // Helper method to check if a move or rotation is valid
+	void dropToBottom(); // should call placeOnBoard() after this.
+	void placeOnBoard(); // place this block on the board it belongs to. should then lose the control to this block after calling this.
+    bool isValidPosition(const std::vector<std::vector<int>>& newCells, int newX, int newY) const; // Helper method to check if a move or rotation is valid
 
 };
 
+// the following are the seven type of blocks's concrete class
+//----------------------------------------------------------------------------------------------
 class IBlock : public Block {
     int rotateState; // 0 or 1 for horizontal/vertical states
-public:
-    IBlock(Board& board, int x, int y);
-    void rotateClockwise() override;
-    void rotateCounterClockwise() override;
+    public:
+        IBlock(Board& board, int x, int y);
+        void rotateClockwise() override;
+        void rotateCounterClockwise() override;
 };
+
 
 class JBlock : public Block {
     int rotateState; // 0-3 for each rotation state
@@ -49,6 +53,7 @@ public:
     void rotateClockwise() override;
     void rotateCounterClockwise() override;
 };
+
 
 class LBlock : public Block {
     int rotateState;

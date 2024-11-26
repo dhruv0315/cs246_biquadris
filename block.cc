@@ -68,6 +68,22 @@ void Block::dropToBottom() {
     while (isValidPosition(cell, x, y - 1)) --y;
 }
 
+void Block::placeOnBoard() {
+    for (const auto& coordinates : cell) {
+        int blockX = x + coordinates[0]; // Calculate the absolute position
+        int blockY = y + coordinates[1];
+        
+        if (blockX >= 0 && blockX < boardWidth && blockY >= 0 && blockY < boardHeight) {
+            board.setCell(blockX, blockY, 'X'); // Use 'X' to represent the block cell
+        } else {
+            cout << "Error: Block out of bounds at (" << blockX << ", " << blockY << ")\n";
+        }
+    }
+}
+
+Block::~Block() {}
+
+
 
 
 IBlock::IBlock(Board& board, int x, int y) : Block{board, x, y}, rotateState{0} {

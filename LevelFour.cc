@@ -1,12 +1,7 @@
 #include "LevelFour.h"
 #include "LevelThree.h"
-#include "IBlock.h"
-#include "JBlock.h"
-#include "LBlock.h"
-#include "OBlock.h"
-#include "SBlock.h"
-#include "ZBlock.h"
-#include "TBlock.h"
+#include "Block.h"
+
 
 
 Block* LevelFour::generateBlock() {

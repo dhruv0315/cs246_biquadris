@@ -2,13 +2,6 @@
 #include "LevelOne.h"
 #include "LevelThree.h"
 #include "Block.h"
-#include "IBlock.h"
-#include "JBlock.h"
-#include "LBlock.h"
-#include "OBlock.h"
-#include "SBlock.h"
-#include "ZBlock.h"
-#include "TBlock.h"
 
 
 Block* LevelTwo::generateBlock() {

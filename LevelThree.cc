@@ -1,13 +1,7 @@
 #include "LevelThree.h"
 #include "LevelTwo.h"
 #include "LevelFour.h"
-#include "IBlock.h"
-#include "JBlock.h"
-#include "LBlock.h"
-#include "OBlock.h"
-#include "SBlock.h"
-#include "ZBlock.h"
-#include "TBlock.h"
+#include "Block.h"
 
 Block* LevelThree::generateBlock() {
     // Generate a random number between 0 and 8

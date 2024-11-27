@@ -23,7 +23,8 @@ void LevelOne::incLevel() {
 }
 
 void LevelOne::decLevel() {
-    // LevelOne cannot decrease below Level 1
+    delete this;
+    *this = *Level::initLevel(0);
 }
 
 int LevelOne::getLevel() const {

@@ -48,3 +48,4 @@ void Player::incTurnsSinceDebuff() {
 void Player::resetTurnsSinceDebuff() {
     turnsSinceDebuff = 0;
 }
+

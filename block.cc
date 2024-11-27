@@ -35,7 +35,8 @@ const vector<vector<int>> TBlock3{{0, 0}, {0, -1}, {0, -2}, {1, -1}};
 
 
 
-Block::Block(Board& board, char c, int x, int y):board{board},cell{{0,0},{0,0},{0,0},{0,0}}, x{x}, y{y}, blockType{c} {}
+Block::Block(Board* board, char c, int x, int y):board{board},cell{{0,0},{0,0},{0,0},{0,0}}, x{x}, y{y}, blockType{c} {}
+
 
 
 bool Block::isValidPosition(const std::vector<std::vector<int>>& newCells, int newX, int newY) const {
@@ -45,14 +46,32 @@ bool Block::isValidPosition(const std::vector<std::vector<int>>& newCells, int n
 
         // Out-of-bounds or occupied cell
         if (checkX < 0 || checkX >= boardWidth || checkY < 0 || checkY >= boardHeight ||
-            board.getCell(checkX, checkY) != ' ') {
+            board->getCell(checkX, checkY) != ' ') {
             return false;
         }
     }
     return true;
 }
 
+char Block::getBlockType() const {
+    return blockType;
+}
+
+int Block::getX() const {
+    return x;
+}
+
+int Block::getY() const {
+    return y;
+}
+
+const std::vector<std::vector<int>>& Block::getCells() const {
+    return cell;
+}
+
+
 void Block::moveLeft() {
+
     if (isValidPosition(cell, x - 1, y)) --x;
 }
 
@@ -74,19 +93,55 @@ void Block::placeOnBoard() {
         int blockY = y + coordinates[1];
         
         if (blockX >= 0 && blockX < boardWidth && blockY >= 0 && blockY < boardHeight) {
-            board.setCell(blockX, blockY, blockType); 
+            board->setCell(blockX, blockY, blockType); 
         } else {
             cout << "Error: Block out of bounds at (" << blockX << ", " << blockY << ")\n";
         }
     }
 }
 
+
+
+void Block::printBoard() const {
+    for (int row = 0; row < boardHeight; ++row) {
+        for (int col = 0; col < boardWidth; ++col) {
+            bool blockCell = false;
+
+            // Check if the current position is a part of the current block
+            for (const auto& coord : cell) { 
+                int blockX = x + coord[0]; // Block's global X position
+                int blockY = y + coord[1]; // Block's global Y position
+
+                if (blockX == col && blockY == row) {
+                    blockCell = true;
+                    break;
+                }
+            }
+
+            // If blind effect is active, obscure part of the board with '?'
+            if (board->isBlinded() && row >= 3 && row <= 12 && col >= 3 && col <= 9) {
+                std::cout << '?'; // Blind effect
+            } 
+            // Print the block's character if it's in the current position
+            else if (blockCell) {
+                cout << blockType; 
+            } 
+            // Otherwise, print the regular board cell
+            else {
+                cout << board->getCell(row, col); // Access board's grid
+            }
+        }
+        cout << '\n';
+    }
+}
+
+
 Block::~Block() {}
 
 
 
 
-IBlock::IBlock(Board& board, char c, int x, int y) : Block{board, 'I', x, y}, rotateState{0} {
+IBlock::IBlock(Board* board, char c, int x, int y) : Block{board, 'I', x, y}, rotateState{0} {
     cell = IBlock0; // Default stateof IBlock(vertical)
 }
 
@@ -110,7 +165,7 @@ void IBlock::rotateCounterClockwise() {
     rotateClockwise(); // Same as clockwise rotation for IBlock
 }
 
-JBlock::JBlock(Board& board, char c, int x, int y) : Block{board, 'J', x, y}, rotateState{0}{
+JBlock::JBlock(Board* board, char c, int x, int y) : Block{board, 'J', x, y}, rotateState{0}{
     cell = JBlock0;
 }
 
@@ -164,7 +219,7 @@ void JBlock::rotateCounterClockwise() {
     }
 }
 
-LBlock::LBlock(Board& board, char c, int x, int y) : Block{board, 'L', x, y}, rotateState{0} {
+LBlock::LBlock(Board* board, char c, int x, int y) : Block{board, 'L', x, y}, rotateState{0} {
     cell = LBlock0;
 }
 
@@ -220,7 +275,7 @@ void LBlock::rotateCounterClockwise() {
 
 
 
-OBlock::OBlock(Board& board, char c, int x, int y) : Block{board, 'O', x, y}, rotateState{0} {
+OBlock::OBlock(Board* board, char c, int x, int y) : Block{board, 'O', x, y} {
     cell = OBlock0;
 }
 
@@ -232,7 +287,7 @@ void OBlock::rotateCounterClockwise() {}
 
 
 
-SBlock::SBlock(Board& board, char c, int x, int y) : Block{board, 'S', x, y}, rotateState{0} {
+SBlock::SBlock(Board* board, char c, int x, int y) : Block{board, 'S', x, y}, rotateState{0} {
     cell = SBlock0;
 }
 
@@ -279,7 +334,7 @@ void ZBlock::rotateCounterClockwise() {
 
 
 
-TBlock::TBlock(Board& board, char c, int x, int y) : Block{board, 'T', x, y}, rotateState{0} {
+TBlock::TBlock(Board* board, char c, int x, int y) : Block{board, 'T', x, y}, rotateState{0} {
     cell = TBlock0;
 }
 

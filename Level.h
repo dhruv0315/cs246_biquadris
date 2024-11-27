@@ -1,7 +1,7 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "Block.h"
+#include "block.h"
 
 // Abstract base class for all levels
 class Level {

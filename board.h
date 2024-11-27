@@ -21,12 +21,11 @@ public:
 
     bool isLineFull(int row) const;        // Checks if a specific row is completely filled
     void clearFullRow(int row);           // Clear the specified row and shifts rows above it down
-
+    bool isBlinded() const;                 // true if blind effect is on
 		char getCell(int x, int y) const;     // Get the content of a specific cell
     void setCell(int x, int y, char value); // Set the content of a specific cell
 
-		
-    void printBoard() const;              // Print the current board state for debugging
+
     void reset();                         // Clear the board
 };
 

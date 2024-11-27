@@ -23,40 +23,31 @@ void Board::clearFullRow(int row) {
     grid[0] = vector<char>(width, ' ');
 }
 
+bool Board::isBlind() const {
+    return isBlind;
+}
+
 
 char Board::getCell(int x, int y) const {
     if (x >= 0 && x < width && y >= 0 && y < height) {
       return grid[y][x];
     } else {
-			cout << "getting cell out of bound" << endl; //print error message when out of bound
-			return '\0';
-		}
+		cout << "getting cell out of bound" << endl; //print error message when out of bound
+		return '\0';
+	}
 }
 
 void Board::setCell(int x, int y, char value) {
     if (x >= 0 && x < width && y >= 0 && y < height) {
         grid[y][x] = value;
     } else {
-			cout << "setting cell out of bound" << endl; //print error message when out of bound
-		}
+		cout << "setting cell out of bound" << endl; //print error message when out of bound
+	}
 }
 
 
 
-void Board::printBoard() const {
-    for (int row = 0; row < height; ++row) {
-        for (int col = 0; col < width; ++col) {
-            // If blind effect is active, obscure part of the board with '?'
-            if (isBlind && row >= 3 && row <= 12 && col >= 3 && col <= 9) {
-                cout << '?'; // blinded
-            } else {
-                cout << grid[row][col]; // Print the actual cell content
-            }
-        }
-        cout << '\n';
-    }
-    
-}
+
 
 void Board::reset() {
     grid = vector<vector<char>>(height, vector<char>(width, ' '));

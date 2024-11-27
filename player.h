@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "block.h"
 #include "board.h"
 #include "Level.h"
-#include "debuff.h"
+
 
 class Player {
 private:
@@ -26,6 +27,6 @@ public:
     void decLevel();
     void incTurnsSinceDebuff();
     void resetTurnsSinceDebuff();
-}
+};
 
 #endif

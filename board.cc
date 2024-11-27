@@ -1,8 +1,7 @@
 #include "board.h"
 #include <algorithm>
 
-Board::Board(int width, int height) 
-    : width(width), height(height), grid(height, vector<char>(width, ' ')) {}
+Board::Board() : grid{height, vector<char>(width, ' ')} {}
 
 bool Board::isLineFull(int row) const {
     if (row < 0 || row >= height) {
@@ -12,8 +11,9 @@ bool Board::isLineFull(int row) const {
 }
 
 void Board::clearFullRow(int row) {
-    if (row < 0 || row >= height) {
-        return; // Invalid row index
+    if (row < 0 || row >= height) { // Invalid row index
+        cout << "CLEARING INVALID ROW INDEX" << endl; 
+        return; 
     }
     // Shift all rows above the cleared row down
     for (int i = row; i > 0; --i) {
@@ -44,9 +44,14 @@ void Board::setCell(int x, int y, char value) {
 
 
 void Board::printBoard() const {
-    for (const auto& row : grid) {
-        for (const auto& cell : row) {
-          cout << cell << ' ';
+    for (int row = 0; row < height; ++row) {
+        for (int col = 0; col < width; ++col) {
+            // If blind effect is active, obscure part of the board with '?'
+            if (isBlind && row >= 3 && row <= 12 && col >= 3 && col <= 9) {
+                cout << '?'; // blinded
+            } else {
+                cout << grid[row][col]; // Print the actual cell content
+            }
         }
         cout << '\n';
     }

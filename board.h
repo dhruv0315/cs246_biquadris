@@ -6,13 +6,17 @@
 
 using namespace std;
 
+const int boardWidth = 11;
+const int boardHeight = 18;
+
 class Board {
     vector<vector<char>> grid; // 2D grid to represent the board (' ' for empty, other chars for blocks)
-    const int width;          // Width of the board
-    const int height;         // Height of the board
+    const int width = boardWidth;          // Width of the board
+    const int height = boardHeight;         // Height of the board
+    bool isBlind;             //for the blind effect, true if this board is blinded
 
 public:
-    Board(int width, int height);
+    Board();
     ~Board() = default;
 
     bool isLineFull(int row) const;        // Checks if a specific row is completely filled

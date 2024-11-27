@@ -26,7 +26,7 @@ void Board::clearFullRow(int row) {
 
 char Board::getCell(int x, int y) const {
     if (x >= 0 && x < width && y >= 0 && y < height) {
-        return grid[y][x];
+      return grid[y][x];
     } else {
 			cout << "getting cell out of bound" << endl; //print error message when out of bound
 			return '\0';
@@ -46,7 +46,7 @@ void Board::setCell(int x, int y, char value) {
 void Board::printBoard() const {
     for (const auto& row : grid) {
         for (const auto& cell : row) {
-            cout << cell << ' ';
+          cout << cell << ' ';
         }
         cout << '\n';
     }

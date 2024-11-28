@@ -17,8 +17,8 @@ int Player::getScore() {
     return score;
 }
 
-int Player::getLevel() {
-    reutrn level->getLevel();
+level* Player::getLevel() {
+    return level;
 }
 
 int Player::getTurnsSinceDebuff() {
@@ -29,8 +29,8 @@ void Player::updateScore(int points) {
     score += points;
 }
 
-void Player::applyDebuff(Debuff *debuff) {
-    //debuff logic
+bool Player::isHeavied() const{
+    return isHeavy;
 }
 
 void Player::incLevel() {
@@ -38,7 +38,7 @@ void Player::incLevel() {
 }
 
 void Player::decLevel() {
-    level->decLevel;
+    level->decLevel();
 }
 
 void Player::incTurnsSinceDebuff() {

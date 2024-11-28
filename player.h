@@ -12,17 +12,18 @@ private:
     Level *level;
     int score;
     int turnsSinceDebuff;
+    bool isHeavy = false;
 public:
     Player(Level* startingLevel, Board *playerBoard);
     ~Player();
 
     Board *getBoard() const;
     int getScore();
-    int getLevel();
+    Level* getLevel();
     int getTurnsSinceDebuff();
 
     void updateScore(int points);
-    void applyDebuff(Debuff *debuff);
+    bool isHeavied() const;
     void incLevel();
     void decLevel();
     void incTurnsSinceDebuff();

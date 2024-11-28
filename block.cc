@@ -310,7 +310,7 @@ void SBlock::rotateCounterClockwise() {
 }
 
 
-ZBlock::ZBlock(Board& board, char c, int x, int y) : Block{board, 'Z', x, y}, rotateState{0} {
+ZBlock::ZBlock(Board* board, char c, int x, int y) : Block{board, 'Z', x, y}, rotateState{0} {
     cell = ZBlock0;
 }
 

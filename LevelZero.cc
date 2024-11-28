@@ -5,12 +5,9 @@
 using namespace std;
 
 LevelZero::LevelZero(const string& fileOne, const string& fileTwo)
-    : firstPlayerIdx(0), secondPlayerIdx(0) {
-    loadSequenceFromFile(fileOne, firstPlayerSequence);
-    loadSequenceFromFile(fileTwo, secondPlayerSequence);
-}
+    : firstPlayerIdx(0), secondPlayerIdx(0) {};
 
-void LevelZero::loadSequenceFromFile(const string& fileName, vector<string>& sequence) {
+void LevelZero::loadFile(const string& fileName, vector<string>& sequence) {
     ifstream file(fileName);
     string block;
 
@@ -21,7 +18,7 @@ void LevelZero::loadSequenceFromFile(const string& fileName, vector<string>& seq
     file.close();
 }
 
-Block* LevelZero::generateBlock(int player) {
+Block* LevelZero::generateBlock(Board *board, int player) {
     vector<string>* seq;
     size_t* index;
 
@@ -40,13 +37,13 @@ Block* LevelZero::generateBlock(int player) {
     *index = (*index + 1) % seq->size();
 
     // Create and return the appropriate block
-    if (block == "I") return new IBlock();
-    if (block == "J") return new JBlock();
-    if (block == "L") return new LBlock();
-    if (block == "O") return new OBlock();
-    if (block == "S") return new SBlock();
-    if (block == "Z") return new ZBlock();
-    if (block == "T") return new TBlock();
+    if (block == "I") return new IBlock(board);
+    if (block == "J") return new JBlock(board);
+    if (block == "L") return new LBlock(board);
+    if (block == "O") return new OBlock(board);
+    if (block == "S") return new SBlock(board);
+    if (block == "Z") return new ZBlock(board);
+    if (block == "T") return new TBlock(board);
 }
 
 void LevelZero::incLevel() {

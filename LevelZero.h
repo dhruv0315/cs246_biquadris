@@ -25,13 +25,6 @@ public:
     void incLevel() override;
     void decLevel() override;
     int getLevel() const override;
-};
-
-    // Override Level methods 
-    Block* generateBlock(int player);  // Generate block for a specific player 
-    void incLevel() override; 
-    void decLevel() override; 
-    int getLevel() const override; 
 }; 
  
 #endif
